@@ -5,6 +5,9 @@ on:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: write # GitHub Actions에 저장소 쓰기 권한 부여
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -24,10 +27,11 @@ jobs:
       - name: Build 🔧
         run: |
           npm run build
-          touch out/.nojekyll
+          touch docs/.nojekyll
 
-      - name: Deploy 🚀
+      - name: Deploy to GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
+          folder: docs
           branch: gh-pages
-          folder: out
+          clean: true
