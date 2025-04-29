@@ -1,0 +1,10 @@
+export const container = 'container mx-auto px-4 py-8';
+export const title = 'text-4xl font-bold text-gray-800 dark:text-white mb-6';
+export const subtitle = 'text-xl text-gray-600 dark:text-gray-300 mb-8';
+export const heroSection = 'flex flex-col md:flex-row items-center justify-between gap-8 mb-16';
+export const heroImage = 'rounded-full w-48 h-48 object-cover shadow-lg';
+export const highlightSection = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6';
+export const card = 'bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md';
+export const cardTitle = 'text-xl font-bold text-gray-800 dark:text-white mb-2';
+export const cardContent = 'text-gray-600 dark:text-gray-300';
+export const button = 'inline-flex items-center px-4 py-2 bg-primary-600 text-white font-medium rounded-lg hover:bg-primary-700 transition-colors';
