@@ -1,0 +1,13 @@
+export const container = 'container mx-auto px-4 py-12';
+export const title = 'text-4xl font-bold text-gray-800 dark:text-white mb-8 text-center';
+export const subtitle = 'text-xl text-gray-600 dark:text-gray-300 mb-12 text-center max-w-3xl mx-auto';
+export const flowContainer = 'w-full h-[75vh] bg-gray-50 dark:bg-gray-900 rounded-lg shadow-lg relative border border-gray-200 dark:border-gray-700';
+export const nodeTypeSelector = 'p-4 bg-white dark:bg-gray-800 rounded-lg shadow mb-4 flex flex-wrap gap-3';
+export const nodeSelectorButton = 'px-3 py-1 rounded text-sm font-medium transition-colors';
+export const nodeSelectorButtonActive = 'bg-primary-600 text-white';
+export const nodeSelectorButtonInactive = 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600';
+export const legendContainer = 'mt-4 flex flex-wrap gap-4 justify-center items-center';
+export const legendItem = 'flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300';
+export const controlsContainer = 'absolute bottom-4 right-4 flex gap-2 z-10';
+export const controlButton = 'w-10 h-10 flex items-center justify-center bg-white dark:bg-gray-800 rounded-full shadow-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors';
+export const controlIcon = 'w-5 h-5';
