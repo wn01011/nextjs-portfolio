@@ -5,8 +5,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // App Router와 호환되는 방식으로 설정
-  distDir: 'out',
+  // GitHub Pages에 맞게 출력 디렉토리 설정
+  distDir: 'docs',
   trailingSlash: true,
 }
 
