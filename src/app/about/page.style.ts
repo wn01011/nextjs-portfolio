@@ -1,0 +1,14 @@
+export const container = 'container mx-auto px-4 py-12';
+export const title = 'text-4xl font-bold text-gray-800 dark:text-white mb-8 text-center';
+export const section = 'mb-12 max-w-3xl mx-auto';
+export const subTitle = 'text-2xl font-bold text-gray-800 dark:text-white mb-4';
+export const paragraph = 'text-gray-600 dark:text-gray-300 mb-4 leading-relaxed';
+export const highlight = 'font-medium text-primary-600 dark:text-primary-400';
+export const timeline = 'space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-1/2 before:h-full before:w-0.5 before:bg-gray-200 dark:before:bg-gray-700';
+export const timelineItem = 'relative pl-10';
+export const timelineDot = 'absolute left-0 top-1 h-4 w-4 rounded-full bg-primary-600';
+export const timelineDate = 'text-sm font-semibold text-gray-500 dark:text-gray-400 mb-1';
+export const timelineTitle = 'font-bold text-gray-800 dark:text-white mb-1';
+export const timelineDesc = 'text-gray-600 dark:text-gray-300';
+export const skillsGrid = 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6';
+export const skillBadge = 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 px-3 py-1 rounded-full text-sm font-medium inline-block';
