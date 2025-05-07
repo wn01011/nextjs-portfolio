@@ -43,7 +43,10 @@ const ProjectNode = ({ data }: { data: any }) => {
   return (
     <div 
       className={S.projectNode}
-      style={{ borderLeftColor: data.color }}
+      style={{ 
+        borderLeftColor: data.color,
+        backgroundColor: 'white'  // 배경색을 명확하게 흰색으로
+      }}
     >
       <h4 className={S.projectTitle}>{data.label}</h4>
       <p className={S.projectPeriod}>{data.period}</p>
@@ -126,7 +129,7 @@ const CareerFlow: React.FC<CareerFlowProps> = ({ experience }) => {
       : experience.projects.filter(project => project.category === selectedCategory);
     
     const projectCount = filteredProjects.length;
-    const radius = 300; // 회사 노드로부터의 거리
+    const radius = 350; // 300에서 350으로 증가시켜 더 넓게 배치
     
     filteredProjects.forEach((project, index) => {
       const angle = (index * 2 * Math.PI) / projectCount;
