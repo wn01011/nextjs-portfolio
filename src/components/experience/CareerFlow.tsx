@@ -159,33 +159,47 @@ const CareerFlow: React.FC<CareerFlowProps> = ({ experience }) => {
     return Array.from(techSet);
   }, []);
 
-  // 기술 노드와 기술에 대한 매핑 생성
-  const createTechMapping = useCallback((technologies: string[]) => {
-    const techMapping: Record<string, string> = {};
-    technologies.forEach(tech => {
-      techMapping[tech] = `skill-${tech}`;
-    });
-    return techMapping;
+  // 기술 간의 관계를 정의하는 함수
+  const getRelatedSkills = useCallback((skill: string) => {
+    const relatedSkills: Record<string, string[]> = {
+      'JavaScript': ['TypeScript', 'React', 'Node.js', 'Express'],
+      'TypeScript': ['JavaScript', 'React', 'Next.js'],
+      'React': ['JavaScript', 'TypeScript', 'Next.js'],
+      'Next.js': ['React', 'TypeScript', 'JavaScript'],
+      'Node.js': ['JavaScript', 'Express', 'REST API'],
+      'Express': ['Node.js', 'JavaScript', 'REST API'],
+      'REST API': ['Node.js', 'Express', 'JavaScript', 'Python'],
+      'Python': ['REST API', 'API 개발'],
+      'AWS': ['EC2', 'RDS', 'S3', 'Load Balancer', 'CI/CD'],
+      'EC2': ['AWS', 'Ubuntu'],
+      'RDS': ['AWS', 'SQL', '복합 인덱스'],
+      'S3': ['AWS', 'Web'],
+      'SQL': ['RDS', '복합 인덱스', 'Database Migration'],
+      'CI/CD': ['AWS', 'GitHub', 'AWS Code Commit'],
+      'GitHub': ['CI/CD', 'Git'],
+      'Unity': ['블루투스', 'Web', 'MQTT'],
+      'MQTT': ['블루투스', 'Unity'],
+      'Database Migration': ['SQL', 'REST API'],
+      '복합 인덱스': ['SQL', 'RDS'],
+      'API 테스팅': ['REST API', 'API 개발'],
+      'API 개발': ['JavaScript', 'Python', 'C#', 'REST API'],
+      'C#': ['API 개발', 'Unity'],
+      '로깅': ['Node.js', 'Express'],
+      'Ubuntu': ['EC2', 'Express'],
+      'Load Balancer': ['AWS', 'EC2'],
+      'SSL': ['Load Balancer', 'AWS'],
+    };
+    
+    return relatedSkills[skill] || [];
   }, []);
 
   // 노드와 엣지 생성
   const generateGraphData = useCallback((experience: WorkExperience, selectedCategory: string, isDark: boolean) => {
     const newNodes: Node[] = [];
     const newEdges: Edge[] = [];
-    
-    // 프로젝트 필터링
-    const filteredProjects = selectedCategory === 'all' 
-      ? experience.projects 
-      : experience.projects.filter(project => project.category === selectedCategory);
-    
-    // 모든 기술 추출
-    const allTechnologies = getAllTechnologies(filteredProjects);
-    
-    // 기술 노드 ID 매핑 생성
-    const techMapping: Record<string, string> = {};
-    allTechnologies.forEach(tech => {
-      techMapping[tech] = `skill-${tech.replace(/\s+|\.|\//g, '_')}`;
-    });
+    const skillNodes: Record<string, string> = {}; // 기술 이름을 키로, 노드 ID를 값으로 저장
+    const projectNodes: Record<string, string> = {}; // 프로젝트 제목을 키로, 노드 ID를 값으로 저장
+    let nodeId = 1;
     
     // 회사 노드 (중심)
     const companyNode: Node = {
@@ -201,19 +215,20 @@ const CareerFlow: React.FC<CareerFlowProps> = ({ experience }) => {
     newNodes.push(companyNode);
     
     // 프로젝트 노드들 (회사 주변)
+    const filteredProjects = selectedCategory === 'all' 
+      ? experience.projects 
+      : experience.projects.filter(project => project.category === selectedCategory);
+    
     const projectCount = filteredProjects.length;
     const radius = 350; // 노드 간 거리
-    
-    // 프로젝트 노드 ID 매핑
-    const projectMapping: Record<string, string> = {};
     
     filteredProjects.forEach((project, index) => {
       const angle = (index * 2 * Math.PI) / projectCount;
       const x = radius * Math.cos(angle);
       const y = radius * Math.sin(angle);
       
-      const projectNodeId = `project-${project.title.replace(/\s+|\/|\./g, '_')}`;
-      projectMapping[project.title] = projectNodeId;
+      const projectNodeId = `project-${nodeId++}`;
+      projectNodes[project.title] = projectNodeId; // 프로젝트 ID 저장
       
       const projectNode: Node = {
         id: projectNodeId,
@@ -244,6 +259,7 @@ const CareerFlow: React.FC<CareerFlowProps> = ({ experience }) => {
     });
     
     // 기술 노드들 (바깥쪽 원)
+    const allTechnologies = getAllTechnologies(filteredProjects);
     const techRadius = radius * 1.8; // 프로젝트 노드보다 더 바깥쪽
     
     allTechnologies.forEach((tech, index) => {
@@ -251,7 +267,9 @@ const CareerFlow: React.FC<CareerFlowProps> = ({ experience }) => {
       const x = techRadius * Math.cos(angle);
       const y = techRadius * Math.sin(angle);
       
-      const skillNodeId = techMapping[tech];
+      const skillNodeId = `skill-${nodeId++}`;
+      skillNodes[tech] = skillNodeId; // 기술 ID 저장
+      
       const techNode: Node = {
         id: skillNodeId,
         type: 'skill',
@@ -262,20 +280,15 @@ const CareerFlow: React.FC<CareerFlowProps> = ({ experience }) => {
         position: { x, y },
       };
       newNodes.push(techNode);
-    });
-    
-    // 프로젝트와 기술 간의 엣지 생성
-    filteredProjects.forEach(project => {
-      const projectId = projectMapping[project.title];
       
-      project.technologies.forEach(tech => {
-        const skillId = techMapping[tech];
-        
-        if (projectId && skillId) {
+      // 관련 프로젝트에 연결하는 엣지
+      filteredProjects.forEach(project => {
+        if (project.technologies.includes(tech)) {
+          const projectId = projectNodes[project.title];
           newEdges.push({
-            id: `edge-${projectId}-${skillId}`,
+            id: `edge-${projectId}-${skillNodeId}`,
             source: projectId,
-            target: skillId,
+            target: skillNodeId,
             animated: false,
             style: { 
               stroke: isDark ? '#94a3b8' : '#475569', 
@@ -287,8 +300,39 @@ const CareerFlow: React.FC<CareerFlowProps> = ({ experience }) => {
       });
     });
     
+    // 기술 간의 관계 엣지 추가
+    allTechnologies.forEach(tech => {
+      const relatedSkills = getRelatedSkills(tech);
+      const sourceNodeId = skillNodes[tech];
+      
+      relatedSkills.forEach(relatedSkill => {
+        // 관련 기술이 현재 보여지는 기술 목록에 있는 경우에만 연결
+        if (allTechnologies.includes(relatedSkill)) {
+          const targetNodeId = skillNodes[relatedSkill];
+          // 중복 엣지 방지 (이미 같은 연결이 있는지 확인)
+          const edgeId = `edge-skill-${sourceNodeId}-${targetNodeId}`;
+          const reverseEdgeId = `edge-skill-${targetNodeId}-${sourceNodeId}`;
+          
+          if (!newEdges.some(edge => edge.id === edgeId || edge.id === reverseEdgeId)) {
+            newEdges.push({
+              id: edgeId,
+              source: sourceNodeId,
+              target: targetNodeId,
+              animated: false,
+              style: { 
+                stroke: isDark ? '#60a5fa' : '#3b82f6', // 기술 간 연결은 파란색 계열로
+                strokeWidth: 1, 
+                opacity: 0.4,
+                strokeDasharray: '5,5' // 점선으로 표시
+              },
+            });
+          }
+        }
+      });
+    });
+    
     return { nodes: newNodes, edges: newEdges };
-  }, [getAllTechnologies]);
+  }, [getAllTechnologies, getRelatedSkills]);
   
   // 카테고리 변경 또는 다크모드 변경시 그래프 업데이트
   useEffect(() => {
