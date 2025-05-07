@@ -63,7 +63,7 @@ const toroocExperience: WorkExperience = {
         "콘텐츠 태그 시스템 도입으로 필터링 기능 향상",
         "다양한 플레이어 통합 작업 진행"
       ],
-      category: "개발"
+      category: "유지보수"
     },
     {
       title: "관리자 페이지 개발",
@@ -190,6 +190,18 @@ const toroocExperience: WorkExperience = {
         "MQTT 통신을 통한 로봇 연결 시스템 개발"
       ],
       category: "개발"
+    },
+    {
+      title: "레거시 시스템 유지보수",
+      period: "2023.09 - 2024.12",
+      description: "기존 시스템의 안정적 운영을 위한 유지보수 작업",
+      technologies: ["JavaScript", "React", "API 통합", "버그 수정"],
+      highlights: [
+        "기존 시스템의 버그 수정 및 성능 개선",
+        "API 변경에 따른 프론트엔드 코드 업데이트",
+        "사용자 피드백 기반 UX 개선"
+      ],
+      category: "유지보수"
     }
   ]
 };
