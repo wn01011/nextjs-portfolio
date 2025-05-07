@@ -125,6 +125,30 @@ const CareerFlow: React.FC<CareerFlowProps> = ({ experience }) => {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  
+  // 다크모드 감지
+  useEffect(() => {
+    // 초기 다크모드 상태 확인
+    const isDark = document.documentElement.classList.contains('dark');
+    setIsDarkMode(isDark);
+    
+    // 다크모드 변경 감지
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          const isDark = document.documentElement.classList.contains('dark');
+          setIsDarkMode(isDark);
+        }
+      });
+    });
+    
+    observer.observe(document.documentElement, { attributes: true });
+    
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
   
   // 프로젝트에서 모든 기술 추출 (중복 제거)
   const getAllTechnologies = useCallback((projects: Project[]) => {
@@ -136,7 +160,7 @@ const CareerFlow: React.FC<CareerFlowProps> = ({ experience }) => {
   }, []);
 
   // 노드와 엣지 생성
-  const generateGraphData = useCallback((experience: WorkExperience, selectedCategory: string) => {
+  const generateGraphData = useCallback((experience: WorkExperience, selectedCategory: string, isDark: boolean) => {
     const newNodes: Node[] = [];
     const newEdges: Edge[] = [];
     let nodeId = 1;
@@ -188,7 +212,11 @@ const CareerFlow: React.FC<CareerFlowProps> = ({ experience }) => {
         source: 'company-1',
         target: projectNodeId,
         animated: false,
-        style: { opacity: 0.7 }
+        style: { 
+          stroke: isDark ? '#94a3b8' : '#475569', 
+          strokeWidth: 2, 
+          opacity: 0.8
+        },
       });
     });
     
@@ -222,7 +250,11 @@ const CareerFlow: React.FC<CareerFlowProps> = ({ experience }) => {
             source: projectId,
             target: skillNodeId,
             animated: false,
-            style: { stroke: '#94a3b8', strokeWidth: 1, opacity: 0.5 },
+            style: { 
+              stroke: isDark ? '#94a3b8' : '#475569', 
+              strokeWidth: 1.5, 
+              opacity: 0.7 
+            },
           });
         }
       });
@@ -231,12 +263,12 @@ const CareerFlow: React.FC<CareerFlowProps> = ({ experience }) => {
     return { nodes: newNodes, edges: newEdges };
   }, [getAllTechnologies]);
   
-  // 카테고리 변경시 그래프 업데이트
+  // 카테고리 변경 또는 다크모드 변경시 그래프 업데이트
   useEffect(() => {
-    const { nodes: newNodes, edges: newEdges } = generateGraphData(experience, selectedCategory);
+    const { nodes: newNodes, edges: newEdges } = generateGraphData(experience, selectedCategory, isDarkMode);
     setNodes(newNodes);
     setEdges(newEdges);
-  }, [experience, selectedCategory, generateGraphData, setNodes, setEdges]);
+  }, [experience, selectedCategory, isDarkMode, generateGraphData, setNodes, setEdges]);
   
   const categories = ['all', '개발', '데브옵스', '인프라', '최적화', '유지보수'];
   
@@ -255,8 +287,18 @@ const CareerFlow: React.FC<CareerFlowProps> = ({ experience }) => {
         fitView
         minZoom={0.5}
         maxZoom={2}
+        defaultEdgeOptions={{
+          style: { 
+            stroke: isDarkMode ? '#94a3b8' : '#475569', 
+            strokeWidth: 2 
+          }
+        }}
       >
-        <Background />
+        <Background 
+          color={isDarkMode ? '#94a3b8' : '#475569'} 
+          gap={16} 
+          size={1}
+        />
         <Controls />
         <MiniMap 
           nodeColor={(node) => {
@@ -266,6 +308,7 @@ const CareerFlow: React.FC<CareerFlowProps> = ({ experience }) => {
             }
             return '#3b82f6';
           }}
+          maskColor={isDarkMode ? 'rgba(0, 0, 0, 0.2)' : 'rgba(255, 255, 255, 0.2)'}
         />
         <Panel position="top-right">
           <div className={S.panel}>
