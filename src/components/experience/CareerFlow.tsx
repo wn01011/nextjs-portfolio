@@ -30,8 +30,20 @@ const categoryColors = {
 
 // 커스텀 노드 컴포넌트들
 const CompanyNode = ({ data }: { data: any }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  
   return (
-    <div className={S.companyNode}>
+    <div 
+      className={S.companyNode}
+      style={{ 
+        zIndex: isHovered ? 10 : 0,
+        opacity: isHovered ? 1 : 0.9,
+        transition: 'opacity 0.3s ease, transform 0.3s ease',
+        transform: isHovered ? 'scale(1.05)' : 'scale(1)'
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <h3 className={S.companyTitle}>{data.label}</h3>
       <p className={S.companyPeriod}>{data.period}</p>
       <p className={S.companyPosition}>{data.position}</p>
@@ -40,13 +52,21 @@ const CompanyNode = ({ data }: { data: any }) => {
 };
 
 const ProjectNode = ({ data }: { data: any }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  
   return (
     <div 
       className={S.projectNode}
       style={{ 
         borderLeftColor: data.color,
-        backgroundColor: 'white'  // 배경색을 명확하게 흰색으로
+        backgroundColor: 'white',
+        zIndex: isHovered ? 10 : 0,
+        opacity: isHovered ? 1 : 0.85,
+        transition: 'opacity 0.3s ease, transform 0.3s ease',
+        transform: isHovered ? 'scale(1.05)' : 'scale(1)'
       }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       <h4 className={S.projectTitle}>{data.label}</h4>
       <p className={S.projectPeriod}>{data.period}</p>
@@ -67,10 +87,21 @@ const ProjectNode = ({ data }: { data: any }) => {
 };
 
 const SkillNode = ({ data }: { data: any }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  
   return (
     <div 
       className={S.skillNode}
-      style={{ backgroundColor: data.bgColor, color: 'white' }}
+      style={{ 
+        backgroundColor: data.bgColor, 
+        color: 'white',
+        zIndex: isHovered ? 10 : 0,
+        opacity: isHovered ? 1 : 0.75,
+        transition: 'opacity 0.3s ease, transform 0.3s ease',
+        transform: isHovered ? 'scale(1.1)' : 'scale(1)'
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       {data.label}
     </div>
@@ -129,7 +160,7 @@ const CareerFlow: React.FC<CareerFlowProps> = ({ experience }) => {
       : experience.projects.filter(project => project.category === selectedCategory);
     
     const projectCount = filteredProjects.length;
-    const radius = 350; // 300에서 350으로 증가시켜 더 넓게 배치
+    const radius = 350; // 노드 간 거리
     
     filteredProjects.forEach((project, index) => {
       const angle = (index * 2 * Math.PI) / projectCount;
@@ -157,6 +188,7 @@ const CareerFlow: React.FC<CareerFlowProps> = ({ experience }) => {
         source: 'company-1',
         target: projectNodeId,
         animated: false,
+        style: { opacity: 0.7 }
       });
     });
     
