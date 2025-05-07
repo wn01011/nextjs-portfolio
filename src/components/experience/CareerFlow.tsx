@@ -211,6 +211,10 @@ const CareerFlow: React.FC<CareerFlowProps> = ({ experience }) => {
         position: experience.position
       },
       position: { x: 0, y: 0 },
+      // 노드 중앙 기준 렌더링을 위한 스타일 설정
+      style: {
+        transformOrigin: '50% 50%',
+      },
     };
     newNodes.push(companyNode);
     
@@ -241,6 +245,10 @@ const CareerFlow: React.FC<CareerFlowProps> = ({ experience }) => {
           color: categoryColors[project.category as keyof typeof categoryColors] || '#64748b',
         },
         position: { x, y },
+        // 노드 중앙 기준 렌더링을 위한 스타일 설정
+        style: {
+          transformOrigin: '50% 50%',
+        },
       };
       newNodes.push(projectNode);
       
@@ -278,6 +286,10 @@ const CareerFlow: React.FC<CareerFlowProps> = ({ experience }) => {
           bgColor: '#3b82f6',
         },
         position: { x, y },
+        // 노드 중앙 기준 렌더링을 위한 스타일 설정
+        style: {
+          transformOrigin: '50% 50%',
+        },
       };
       newNodes.push(techNode);
       
