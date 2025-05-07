@@ -17,9 +17,9 @@ export const companyPeriod = 'text-sm mt-1';
 export const companyPosition = 'text-sm';
 
 // 프로젝트 노드 스타일
-export const projectNode = 'p-3 rounded-lg shadow-md w-56 border-l-4';
-export const projectTitle = 'font-medium text-gray-900';
-export const projectPeriod = 'text-xs text-gray-600';
+export const projectNode = 'p-3 rounded-lg shadow-md w-64 border-l-4 bg-white';
+export const projectTitle = 'font-semibold text-gray-900 text-base mb-1';
+export const projectPeriod = 'text-xs text-gray-800 font-medium';
 export const projectTechContainer = 'mt-2 flex flex-wrap gap-1';
 export const projectTechTag = 'px-1.5 py-0.5 text-xs rounded-full bg-gray-100 text-gray-800';
 export const projectTechMore = 'px-1.5 py-0.5 text-xs rounded-full bg-gray-100 text-gray-800';
