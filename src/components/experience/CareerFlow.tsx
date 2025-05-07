@@ -159,11 +159,33 @@ const CareerFlow: React.FC<CareerFlowProps> = ({ experience }) => {
     return Array.from(techSet);
   }, []);
 
+  // 기술 노드와 기술에 대한 매핑 생성
+  const createTechMapping = useCallback((technologies: string[]) => {
+    const techMapping: Record<string, string> = {};
+    technologies.forEach(tech => {
+      techMapping[tech] = `skill-${tech}`;
+    });
+    return techMapping;
+  }, []);
+
   // 노드와 엣지 생성
   const generateGraphData = useCallback((experience: WorkExperience, selectedCategory: string, isDark: boolean) => {
     const newNodes: Node[] = [];
     const newEdges: Edge[] = [];
-    let nodeId = 1;
+    
+    // 프로젝트 필터링
+    const filteredProjects = selectedCategory === 'all' 
+      ? experience.projects 
+      : experience.projects.filter(project => project.category === selectedCategory);
+    
+    // 모든 기술 추출
+    const allTechnologies = getAllTechnologies(filteredProjects);
+    
+    // 기술 노드 ID 매핑 생성
+    const techMapping: Record<string, string> = {};
+    allTechnologies.forEach(tech => {
+      techMapping[tech] = `skill-${tech.replace(/\s+|\.|\//g, '_')}`;
+    });
     
     // 회사 노드 (중심)
     const companyNode: Node = {
@@ -179,19 +201,20 @@ const CareerFlow: React.FC<CareerFlowProps> = ({ experience }) => {
     newNodes.push(companyNode);
     
     // 프로젝트 노드들 (회사 주변)
-    const filteredProjects = selectedCategory === 'all' 
-      ? experience.projects 
-      : experience.projects.filter(project => project.category === selectedCategory);
-    
     const projectCount = filteredProjects.length;
     const radius = 350; // 노드 간 거리
+    
+    // 프로젝트 노드 ID 매핑
+    const projectMapping: Record<string, string> = {};
     
     filteredProjects.forEach((project, index) => {
       const angle = (index * 2 * Math.PI) / projectCount;
       const x = radius * Math.cos(angle);
       const y = radius * Math.sin(angle);
       
-      const projectNodeId = `project-${nodeId++}`;
+      const projectNodeId = `project-${project.title.replace(/\s+|\/|\./g, '_')}`;
+      projectMapping[project.title] = projectNodeId;
+      
       const projectNode: Node = {
         id: projectNodeId,
         type: 'project',
@@ -221,7 +244,6 @@ const CareerFlow: React.FC<CareerFlowProps> = ({ experience }) => {
     });
     
     // 기술 노드들 (바깥쪽 원)
-    const allTechnologies = getAllTechnologies(filteredProjects);
     const techRadius = radius * 1.8; // 프로젝트 노드보다 더 바깥쪽
     
     allTechnologies.forEach((tech, index) => {
@@ -229,7 +251,7 @@ const CareerFlow: React.FC<CareerFlowProps> = ({ experience }) => {
       const x = techRadius * Math.cos(angle);
       const y = techRadius * Math.sin(angle);
       
-      const skillNodeId = `skill-${nodeId++}`;
+      const skillNodeId = techMapping[tech];
       const techNode: Node = {
         id: skillNodeId,
         type: 'skill',
@@ -240,15 +262,20 @@ const CareerFlow: React.FC<CareerFlowProps> = ({ experience }) => {
         position: { x, y },
       };
       newNodes.push(techNode);
+    });
+    
+    // 프로젝트와 기술 간의 엣지 생성
+    filteredProjects.forEach(project => {
+      const projectId = projectMapping[project.title];
       
-      // 관련 프로젝트에 연결하는 엣지
-      filteredProjects.forEach(project => {
-        if (project.technologies.includes(tech)) {
-          const projectId = `project-${filteredProjects.indexOf(project) + 1}`;
+      project.technologies.forEach(tech => {
+        const skillId = techMapping[tech];
+        
+        if (projectId && skillId) {
           newEdges.push({
-            id: `edge-${projectId}-${skillNodeId}`,
+            id: `edge-${projectId}-${skillId}`,
             source: projectId,
-            target: skillNodeId,
+            target: skillId,
             animated: false,
             style: { 
               stroke: isDark ? '#94a3b8' : '#475569', 
