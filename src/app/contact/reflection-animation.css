@@ -1,0 +1,10 @@
+.reflection-effect {
+  transform: perspective(800px) rotateX(65deg) scaleY(-1) translateY(-100%);
+  border: 1px solid gray;
+  filter: blur(2px);
+  opacity: 0.8;
+  mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, transparent 80%);
+  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, transparent 80%);
+  transform-origin: top center;
+  pointer-events: none;
+}

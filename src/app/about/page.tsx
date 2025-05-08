@@ -79,9 +79,27 @@ export default function About() {
         <div className={S.timeline}>
           <div className={S.timelineItem}>
             <div className={S.timelineDot}></div>
-            <div className={S.timelineDate}>2014년 - 2018년</div>
-            <h3 className={S.timelineTitle}>컴퓨터 공학 학사</h3>
-            <p className={S.timelineDesc}>OO 대학교</p>
+            <div className={S.timelineDate}>2022년 8월 - 2023년</div>
+            <h3 className={S.timelineTitle}>블록체인 기반 핀테크 및 응용SW개발자 양성과정</h3>
+            <p className={S.timelineDesc}>주식회사 경일게임아카데미</p>
+            <p className={S.timelineDesc}>
+              JavaScript 기반 웹 프론트엔드/백엔드 및 블록체인 과정
+            </p>
+          </div>
+          <div className={S.timelineItem}>
+            <div className={S.timelineDot}></div>
+            <div className={S.timelineDate}>2021년 6월 - 2021년 12월</div>
+            <h3 className={S.timelineTitle}>게임프로그래머 유니티</h3>
+            <p className={S.timelineDesc}>부산예일직업전문학교</p>
+            <p className={S.timelineDesc}>
+              Unity 및 C# 기반 게임 개발 과정
+            </p>
+          </div>
+          <div className={S.timelineItem}>
+            <div className={S.timelineDot}></div>
+            <div className={S.timelineDate}>2018년</div>
+            <h3 className={S.timelineTitle}>조경학과 (중퇴)</h3>
+            <p className={S.timelineDesc}>성균관대학교</p>
           </div>
         </div>
       </section>

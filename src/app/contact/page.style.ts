@@ -17,3 +17,9 @@ export const infoText = 'text-gray-600 dark:text-gray-300';
 export const infoLink = 'text-primary-600 dark:text-primary-400 hover:underline';
 export const socialLinks = 'flex gap-4 mt-8';
 export const socialLink = 'w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors';
+
+// 반사 효과 관련 스타일
+export const cardContainer = 'flex justify-center mt-10 relative';
+export const card = 'bg-white dark:bg-gray-900 rounded-xl shadow-lg p-8 w-full max-w-md text-center border border-gray-100 dark:border-gray-800 relative z-10 hover:shadow-xl transition-all duration-300';
+export const reflectionContainer = 'absolute top-[98%] left-[52%] transform -translate-x-1/2 w-full max-w-md overflow-hidden opacity-40 dark:opacity-30 pointer-events-none';
+export const reflection = 'bg-white dark:bg-gray-900 rounded-xl shadow-lg p-8 w-full text-center border border-gray-100 dark:border-gray-800 transform-gpu animate-reflection scale-95';

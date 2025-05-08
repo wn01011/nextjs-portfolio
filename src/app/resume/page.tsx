@@ -176,11 +176,48 @@ export default function Resume() {
           <div className={S.educationItem}>
             <div className={S.educationHeader}>
               <div>
-                <span className={S.educationTitle}>컴퓨터 공학 학사</span>
+                <span className={S.educationTitle}>블록체인 기반 핀테크 및 응용SW개발자 양성과정</span>
                 <span> @ </span>
-                <span className={S.educationInstitution}>OO 대학교</span>
+                <span className={S.educationInstitution}>주식회사 경일게임아카데미</span>
               </div>
-              <span className={S.educationDate}>2014년 - 2018년</span>
+              <span className={S.educationDate}>2022년 8월 - 2023년</span>
+            </div>
+            <ul className={S.experienceDesc + " list-disc list-inside"}>
+              <li>JavaScript 기반 웹 프론트엔드/백엔드 및 블록체인 과정</li>
+              <li>React와 Node.Js Express 서버를 이용한 홈페이지 구축 경험</li>
+              <li>AWS의 EC2, S3를 사용한 배포 경험</li>
+              <li>React를 이용한 SPA, CSR 어플리케이션 구현</li>
+              <li>Next.Js를 이용한 SSR 어플리케이션 구현</li>
+              <li>Redux를 사용한 전역 상태 관리</li>
+              <li>Git을 이용한 협업</li>
+              <li>web3 라이브러리를 사용한 스마트 컨트랙트 배포</li>
+            </ul>
+          </div>
+
+          <div className={S.educationItem}>
+            <div className={S.educationHeader}>
+              <div>
+                <span className={S.educationTitle}>게임프로그래머 유니티</span>
+                <span> @ </span>
+                <span className={S.educationInstitution}>부산예일직업전문학교</span>
+              </div>
+              <span className={S.educationDate}>2021년 6월 - 2021년 12월</span>
+            </div>
+            <ul className={S.experienceDesc + " list-disc list-inside"}>
+              <li>Unity 및 C# 기반 게임 개발</li>
+              <li>3D 게임 구현 및 최적화</li>
+              <li>셔이더 프로그래밍 및 시각 효과 구현</li>
+            </ul>
+          </div>
+
+          <div className={S.educationItem}>
+            <div className={S.educationHeader}>
+              <div>
+                <span className={S.educationTitle}>조경학과 (중퇴)</span>
+                <span> @ </span>
+                <span className={S.educationInstitution}>성균관대학교</span>
+              </div>
+              <span className={S.educationDate}>2018년</span>
             </div>
           </div>
         </section>

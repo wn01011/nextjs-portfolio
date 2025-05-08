@@ -34,17 +34,13 @@
     "/contact/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
+      "static/css/app/contact/page.css",
       "static/chunks/app/contact/page.js"
     ],
     "/experience/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/experience/page.js"
-    ],
-    "/not-found": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/not-found.js"
     ]
   }
 }

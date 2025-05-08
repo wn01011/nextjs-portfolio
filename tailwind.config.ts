@@ -27,6 +27,15 @@ const config: Config = {
         sans: ["Inter", "ui-sans-serif", "system-ui"],
         display: ["Lexend", "ui-sans-serif", "system-ui"],
       },
+      keyframes: {
+        reflection: {
+          '0%, 100%': { transform: 'rotateX(180deg) rotateZ(-2deg) translateY(-20px) scale(0.9)' },
+          '50%': { transform: 'rotateX(180deg) rotateZ(-2deg) translateY(-25px) scale(0.9)' },
+        },
+      },
+      animation: {
+        reflection: 'reflection 4s ease-in-out infinite',
+      },
     },
   },
   plugins: [],

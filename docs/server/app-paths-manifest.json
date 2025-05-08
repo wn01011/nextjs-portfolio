@@ -1,9 +1,7 @@
 {
-  "/not-found": "app/not-found.js",
   "/skills/page": "app/skills/page.js",
   "/contact/page": "app/contact/page.js",
-  "/experience/page": "app/experience/page.js",
-  "/projects/page": "app/projects/page.js",
   "/page": "app/page.js",
-  "/career-flow/page": "app/career-flow/page.js"
+  "/career-flow/page": "app/career-flow/page.js",
+  "/experience/page": "app/experience/page.js"
 }
