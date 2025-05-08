@@ -3,14 +3,19 @@ import Image from 'next/image';
 import { ArrowRight, ExternalLink, Github, Code, Star } from 'lucide-react';
 import toroocExperience from '@/data/experience';
 import * as S from './page.style';
+import { getImageSrc } from "@/utils/getImageSrc";
 
 // 카테고리별 색상 정의
 const categoryColors = {
-  '개발': 'bg-blue-100 dark:bg-blue-900/30 border-blue-300 dark:border-blue-700',
-  '데브옵스': 'bg-orange-100 dark:bg-orange-900/30 border-orange-300 dark:border-orange-700', 
-  '인프라': 'bg-emerald-100 dark:bg-emerald-900/30 border-emerald-300 dark:border-emerald-700',
-  '최적화': 'bg-purple-100 dark:bg-purple-900/30 border-purple-300 dark:border-purple-700',
-  '유지보수': 'bg-amber-100 dark:bg-amber-900/30 border-amber-300 dark:border-amber-700',
+  개발: "bg-blue-100 dark:bg-blue-900/30 border-blue-300 dark:border-blue-700",
+  데브옵스:
+    "bg-orange-100 dark:bg-orange-900/30 border-orange-300 dark:border-orange-700",
+  인프라:
+    "bg-emerald-100 dark:bg-emerald-900/30 border-emerald-300 dark:border-emerald-700",
+  최적화:
+    "bg-purple-100 dark:bg-purple-900/30 border-purple-300 dark:border-purple-700",
+  유지보수:
+    "bg-amber-100 dark:bg-amber-900/30 border-amber-300 dark:border-amber-700",
 };
 
 // 주요 기술
@@ -85,7 +90,7 @@ export default function Home() {
               <div className={S.heroProfileWrap}>
                 <div className={S.heroProfile}>
                   <Image
-                    src="/profile.jpeg"
+                    src={getImageSrc("/profile.jpeg")}
                     alt="프로필 이미지"
                     width={288}
                     height={288}
@@ -190,7 +195,7 @@ export default function Home() {
             </div>
             <div className={S.flowPreview}>
               <Image
-                src="/viewer.png"
+                src={getImageSrc("/viewer.png")}
                 alt="경력 시각화 미리보기"
                 width={600}
                 height={400}
