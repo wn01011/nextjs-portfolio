@@ -51,8 +51,10 @@ export default function Navbar() {
   const toggleDarkMode = () => {
     if (isDarkMode) {
       document.documentElement.classList.remove('dark');
+      setIsDarkMode(false);
     } else {
       document.documentElement.classList.add('dark');
+      setIsDarkMode(true);
     }
   };
   

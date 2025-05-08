@@ -1,20 +1,22 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import * as S from './page.style';
-import { ReactFlowProvider } from 'reactflow';
-import dynamic from 'next/dynamic';
+import * as S from "./SkillsClient.style";
+import { ReactFlowProvider } from "reactflow";
+import dynamic from "next/dynamic";
 
 // ReactFlow를 동적으로 임포트 (클라이언트 사이드에서만 로드)
 const SkillsFlowComponent = dynamic(
-  () => import('@/components/flow/SkillsFlow'),
-  { 
+  () => import("@/components/flow/SkillsFlow"),
+  {
     ssr: false,
     loading: () => (
-      <div className="w-full h-[75vh] bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center">
-        <p className="text-gray-500 dark:text-gray-400">기술 스택 시각화 로딩 중...</p>
+      <div className={S.flowContainer + " flex items-center justify-center"}>
+        <p className="text-gray-500 dark:text-gray-400">
+          기술 스택 시각화 로딩 중...
+        </p>
       </div>
-    )
+    ),
   }
 );
 

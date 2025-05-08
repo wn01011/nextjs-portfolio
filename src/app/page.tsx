@@ -15,57 +15,83 @@ const categoryColors = {
 
 // 주요 기술
 const highlightTech = [
-  { 
-    name: '프론트엔드', 
-    skills: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS', 'ReactFlow'],
-    icon: <Code className="w-8 h-8 text-blue-500 mb-2" />
+  {
+    name: "프론트엔드",
+    skills: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Styled-components",
+      "Zustand",
+      "Redux-toolkit",
+      "React-hook-form",
+      "React-query",
+    ],
+    icon: <Code className="w-8 h-8 text-blue-500 mb-2" />,
   },
-  { 
-    name: '백엔드/인프라', 
-    skills: ['Node.js', 'Express', 'AWS (EC2, RDS, S3)', 'Ubuntu', 'REST API'],
-    icon: <Star className="w-8 h-8 text-emerald-500 mb-2" />
+  {
+    name: "백엔드/인프라",
+    skills: ["Node.js", "Express", "AWS", "REST API", "Docker"],
+    icon: <Star className="w-8 h-8 text-emerald-500 mb-2" />,
   },
-  { 
-    name: '개발도구', 
-    skills: ['Git', 'GitHub', 'CI/CD', 'VS Code', 'Figma'],
-    icon: <Github className="w-8 h-8 text-gray-500 mb-2" />
-  }
+  {
+    name: "개발도구",
+    skills: ["GitHub", "Cursor", "ClaudeDesktop"],
+    icon: <Github className="w-8 h-8 text-gray-500 mb-2" />,
+  },
 ];
 
 // 주요 프로젝트 5개 선택
-const featuredProjects = toroocExperience.projects.filter(project => 
-  ['로봇 콘텐츠 빌더툴 개발', '로봇 콘텐츠 사이트 개발 및 유지보수', 'RDS 쿼리 최적화', '도메인 체계 정리', '관리자 페이지 개발'].includes(project.title)
+const featuredProjects = toroocExperience.projects.filter((project) =>
+  [
+    "로봇 콘텐츠 빌더툴 개발",
+    "로봇 콘텐츠 사이트 개발 및 유지보수",
+    "RDS 쿼리 최적화",
+    "도메인 체계 정리",
+    "관리자 페이지 개발",
+  ].includes(project.title)
 );
 
 export default function Home() {
   return (
-    <main className="pt-16">
+    <main className={S.main}>
       {/* 히어로 섹션 */}
-      <section className="min-h-[80vh] flex flex-col justify-center">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="order-2 lg:order-1">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-                <span className="text-primary-500">토룩</span>을 거쳐온<br />
-                프론트엔드 개발자
+      <section className={S.minHero}>
+        <div className={S.container}>
+          <div className={S.heroGrid}>
+            <div className={S.order2}>
+              <h1 className={S.heroTitle}>
+                <span className="text-primary-500">생산성</span>향상을
+                <br />
+                추구하는
+                <br />
+                개발자
               </h1>
-              <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-                로봇 콘텐츠 개발부터 인프라 최적화까지,<br />
-                다양한 분야를 섭렵한 풀스택 개발 경험을 소개합니다.
+              <p className={S.heroDesc}>
+                로봇 콘텐츠 개발부터 인프라 최적화까지,
+                <br />
+                다양한 분야의 개발 경험을 소개합니다.
               </p>
-              <div className="flex flex-wrap gap-4">
-                <Link href="/experience" className="px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-lg transition-colors flex items-center">
+              <div className={S.heroBtnWrap}>
+                <Link href="/experience" className={S.heroBtn}>
                   경력 보기 <ArrowRight className="ml-2 w-4 h-4" />
                 </Link>
-                <Link href="/career-flow" className="px-6 py-3 bg-gray-800 hover:bg-gray-900 text-white font-medium rounded-lg transition-colors flex items-center dark:bg-gray-700 dark:hover:bg-gray-800">
+                <Link href="/career-flow" className={S.heroBtn2}>
                   경력 시각화 <ExternalLink className="ml-2 w-4 h-4" />
                 </Link>
               </div>
             </div>
-            <div className="order-1 lg:order-2 flex justify-center">
-              <div className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 relative rounded-full bg-gradient-to-br from-primary-500/20 to-primary-500/10 dark:from-primary-500/10 dark:to-primary-500/5 flex items-center justify-center">
-                <div className="w-48 h-48 md:w-60 md:h-60 lg:w-72 lg:h-72 bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden border-4 border-white dark:border-gray-700 flex items-center justify-center">
-                  <span className="text-gray-600 dark:text-gray-400 text-lg">프로필 이미지</span>
+            <div className={S.order1}>
+              <div className={S.heroProfileWrap}>
+                <div className={S.heroProfile}>
+                  <Image
+                    src="/profile.jpeg"
+                    alt="프로필 이미지"
+                    width={288}
+                    height={288}
+                    priority
+                    className={S.profileImageRotate}
+                  />
                 </div>
               </div>
             </div>
@@ -74,47 +100,50 @@ export default function Home() {
       </section>
 
       {/* 토룩 경력 하이라이트 */}
-      <section className="py-20 bg-gray-50 dark:bg-gray-900/50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">토룩에서의 개발 경험</h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300">{toroocExperience.period} | {toroocExperience.position}</p>
+      <section className={S.sectionBg}>
+        <div className={S.container}>
+          <div className={S.sectionCenter}>
+            <h2 className={S.sectionTitle}>토룩에서의 개발 경험</h2>
+            <p className={S.sectionSubtitle}>
+              {toroocExperience.period} | {toroocExperience.position}
+            </p>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className={S.projectGrid}>
             {featuredProjects.map((project, index) => (
-              <div 
-                key={index} 
-                className={`rounded-lg p-6 border ${categoryColors[project.category]} hover:shadow-md transition-shadow`}
+              <div
+                key={index}
+                className={`${S.projectCard} ${
+                  categoryColors[project.category]
+                }`}
               >
-                <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-2">
-                  {project.title}
-                </h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{project.period}</p>
-                <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2 mb-4">
+                <h3 className={S.projectCardTitle}>{project.title}</h3>
+                <p className={S.projectCardPeriod}>{project.period}</p>
+                <p className={S.projectCardDesc}>{project.description}</p>
+                <div className={S.projectCardTech}>
                   {project.technologies.slice(0, 3).map((tech, i) => (
-                    <span key={i} className="text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 px-2 py-1 rounded">
+                    <span key={i} className={S.projectCardTechItem}>
                       {tech}
                     </span>
                   ))}
                   {project.technologies.length > 3 && (
-                    <span className="text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 px-2 py-1 rounded">
+                    <span className={S.projectCardTechItem}>
                       +{project.technologies.length - 3}
                     </span>
                   )}
                 </div>
-                <Link href={`/experience#${project.title.replace(/\s+/g, '-').toLowerCase()}`} className="text-primary-500 hover:text-primary-600 transition-colors text-sm flex items-center">
+                <Link
+                  href={`/experience#${project.title
+                    .replace(/\s+/g, "-")
+                    .toLowerCase()}`}
+                  className={S.projectCardMore}
+                >
                   자세히 보기 <ArrowRight className="ml-1 w-3 h-3" />
                 </Link>
               </div>
             ))}
           </div>
-          
           <div className="text-center mt-12">
-            <Link href="/experience" className="inline-flex items-center text-primary-500 hover:text-primary-600 font-medium">
+            <Link href="/experience" className={S.allProjectBtn}>
               모든 프로젝트 보기 <ArrowRight className="ml-1 w-4 h-4" />
             </Link>
           </div>
@@ -122,26 +151,26 @@ export default function Home() {
       </section>
 
       {/* 기술 스택 */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-16 text-center">기술 스택</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <section className={S.section}>
+        <div className={S.container}>
+          <h2 className={S.sectionTitle + " mb-16 text-center"}>기술 스택</h2>
+          <div className={S.stackGrid}>
             {highlightTech.map((tech, index) => (
-              <div key={index} className="flex flex-col items-center p-8 bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+              <div key={index} className={S.stackCard}>
                 {tech.icon}
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">{tech.name}</h3>
+                <h3 className={S.stackCardTitle}>{tech.name}</h3>
                 <ul className="text-center">
                   {tech.skills.map((skill, i) => (
-                    <li key={i} className="text-gray-600 dark:text-gray-300 py-1">{skill}</li>
+                    <li key={i} className={S.stackCardSkill}>
+                      {skill}
+                    </li>
                   ))}
                 </ul>
               </div>
             ))}
           </div>
-          
           <div className="text-center mt-12">
-            <Link href="/skills" className="inline-flex items-center text-primary-500 hover:text-primary-600 font-medium">
+            <Link href="/skills" className={S.stackAllBtn}>
               모든 기술 스택 보기 <ArrowRight className="ml-1 w-4 h-4" />
             </Link>
           </div>
@@ -149,29 +178,29 @@ export default function Home() {
       </section>
 
       {/* 경력 시각화 섹션 */}
-      <section className="py-20 bg-gray-50 dark:bg-gray-900/50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+      <section className={S.flowSection}>
+        <div className={S.container}>
+          <div className={S.flowWrap}>
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">경력 시각화</h2>
-              <p className="text-lg text-gray-600 dark:text-gray-300">
-                토룩 프로젝트와 기술 간의 연관성을 인터랙티브 그래프로 탐색해보세요.
+              <h2 className={S.flowTitle}>경력 시각화</h2>
+              <p className={S.flowDesc}>
+                토룩 프로젝트와 기술 간의 연관성을 인터랙티브 그래프로
+                탐색해보세요.
               </p>
             </div>
-            
-            <div className="aspect-video bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md flex items-center justify-center mb-6">
-              <div className="text-gray-400 dark:text-gray-500 flex flex-col items-center">
-                <ExternalLink className="w-12 h-12 mb-4" />
-                <span className="text-lg">경력 시각화 미리보기</span>
-              </div>
+            <div className={S.flowPreview}>
+              <Image
+                src="/viewer.png"
+                alt="경력 시각화 미리보기"
+                width={600}
+                height={400}
+                style={{ objectFit: "contain" }}
+                priority
+              />
             </div>
-            
             <div className="text-center">
-              <Link 
-                href="/career-flow" 
-                className="px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-lg transition-colors inline-flex items-center"
-              >
-                인터랙티브 시각화 보기 <ExternalLink className="ml-2 w-4 h-4" />
+              <Link href="/career-flow" className={S.flowBtn}>
+                바로가기 <ExternalLink className="ml-2 w-4 h-4" />
               </Link>
             </div>
           </div>
@@ -179,17 +208,15 @@ export default function Home() {
       </section>
 
       {/* 마지막 CTA 섹션 */}
-      <section className="py-20 bg-gradient-to-br from-primary-500/10 to-primary-500/5">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">함께 협업해보세요</h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
-              프론트엔드 개발부터 인프라 설계까지, 다양한 경험을 바탕으로 한 협업을 기대합니다.
+      <section className={S.ctaSection}>
+        <div className={S.container}>
+          <div className={S.ctaWrap}>
+            <h2 className={S.ctaTitle}>함께 협업해보세요</h2>
+            <p className={S.ctaDesc}>
+              프론트엔드 개발부터 인프라 설계까지, 다양한 경험을 바탕으로 한
+              협업을 기대합니다.
             </p>
-            <Link 
-              href="/contact" 
-              className="px-8 py-4 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-lg transition-colors inline-flex items-center"
-            >
+            <Link href="/contact" className={S.ctaBtn}>
               연락하기 <ArrowRight className="ml-2 w-4 h-4" />
             </Link>
           </div>
