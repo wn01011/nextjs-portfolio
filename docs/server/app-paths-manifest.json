@@ -1,10 +1,4 @@
 {
-  "/not-found": "app/not-found.js",
   "/resume/page": "app/resume/page.js",
-  "/page": "app/page.js",
-  "/experience/page": "app/experience/page.js",
-  "/projects/page": "app/projects/page.js",
-  "/career-flow/page": "app/career-flow/page.js",
-  "/skills/page": "app/skills/page.js",
-  "/contact/page": "app/contact/page.js"
+  "/page": "app/page.js"
 }

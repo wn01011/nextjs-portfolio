@@ -335,15 +335,16 @@ export default function Resume() {
         </section>
 
         {/* 다운로드 버튼 */}
-        {/* <div className="text-center">
-          <button
+        <div className="text-center">
+          <a
             id="pdf-download-btn"
+            href="/resume.pdf"
+            download
             className={S.downloadButton}
-            onClick={handleDownloadPDF}
           >
             PDF로 다운로드
-          </button>
-        </div> */}
+          </a>
+        </div>
       </div>
     </div>
   );
