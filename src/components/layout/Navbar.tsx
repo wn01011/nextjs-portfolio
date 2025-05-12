@@ -13,6 +13,9 @@ export default function Navbar() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const pathname = usePathname();
 
+  // /resume 경로에서는 네브바를 렌더링하지 않음
+  if (pathname === "/resume") return null;
+
   // 스크롤 감지
   useEffect(() => {
     const handleScroll = () => {
@@ -68,6 +71,7 @@ export default function Navbar() {
     { name: "시각화", path: "/career-flow" },
     { name: "기술 스택", path: "/skills" },
     { name: "연락처", path: "/contact" },
+    { name: "이력서", path: "/resume" }, // 이력서 추가
   ];
 
   return (

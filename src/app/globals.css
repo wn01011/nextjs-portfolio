@@ -25,3 +25,25 @@ body {
     text-wrap: balance;
   }
 }
+
+@media print {
+  .pdf-stack-title {
+    margin-top: 0 !important;
+    margin-bottom: 8px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  .resume-section {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+  .resume-container {
+    padding-top: 16px !important;
+  }
+  .stack-badge {
+    padding-top: 0 !important;
+    padding-bottom: 8px !important;
+    display: inline-block !important;
+    position: static !important;
+  }
+}

@@ -49,7 +49,7 @@ const ExperienceTabs: React.FC<ExperienceTabsProps> = ({
           }
           onClick={() => setActiveTab("projects")}
         >
-          프로젝트
+          토룩 프로젝트
         </button>
       </div>
 

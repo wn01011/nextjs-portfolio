@@ -1,9 +1,72 @@
-import * as S from './page.style';
+"use client";
+import * as S from "./page.style";
+import Image from "next/image";
+import { useRef } from "react";
+import html2pdf from "html2pdf.js";
 
 export default function Resume() {
+  const pdfRef = useRef<HTMLDivElement>(null);
+
+  const handleDownloadPDF = () => {
+    if (pdfRef.current) {
+      // PDF 버튼을 임시로 숨김 처리
+      const btn = document.getElementById("pdf-download-btn");
+      const originalDisplay = btn ? btn.style.display : "";
+      if (btn) btn.style.display = "none";
+
+      // 다크모드 강제 해제 (resume 영역만)
+      const resumeEl = pdfRef.current;
+      const originalBg = resumeEl.style.backgroundColor;
+      const originalColor = resumeEl.style.color;
+      resumeEl.style.backgroundColor = "#fff";
+      resumeEl.style.color = "#222";
+      resumeEl.classList.remove("dark");
+
+      // 하위 모든 요소에서 dark 클래스를 제거
+      resumeEl.querySelectorAll(".dark").forEach((el) => {
+        el.classList.remove("dark");
+      });
+
+      // stack-badge 중앙 정렬 스타일 강제 적용
+      const stackBadges = resumeEl.querySelectorAll(".stack-badge");
+      const originalBadgeStyles: string[] = [];
+      stackBadges.forEach((el) => {
+        originalBadgeStyles.push(el.getAttribute("style") || "");
+        el.setAttribute(
+          "style",
+          (el.getAttribute("style") || "") +
+            "display:flex;align-items:center;justify-content:center;height:32px;min-width:48px;padding:0 12px;font-size:1rem;vertical-align:middle;"
+        );
+      });
+
+      html2pdf()
+        .from(resumeEl)
+        .save("resume.pdf")
+        .then(() => {
+          if (btn) btn.style.display = originalDisplay;
+          resumeEl.style.backgroundColor = originalBg;
+          resumeEl.style.color = originalColor;
+          // stack-badge 스타일 원복
+          stackBadges.forEach((el, idx) => {
+            el.setAttribute("style", originalBadgeStyles[idx]);
+          });
+        });
+    }
+  };
+
   return (
-    <div className={S.container}>
+    <div ref={pdfRef} className={S.container} id="resume-root">
       <div className={S.resumeContainer}>
+        <div className="flex justify-center mb-6">
+          <Image
+            src="/profile.jpeg"
+            alt="프로필 이미지"
+            width={112}
+            height={112}
+            className="rounded-full object-cover border-2 border-primary-600 rotate-45 aspect-square"
+            style={{ transform: "rotate(45deg)" }}
+          />
+        </div>
         <h1 className={S.title}>경력 기술서</h1>
 
         {/* 연락처 정보 */}
@@ -21,6 +84,10 @@ export default function Resume() {
             <div className={S.contactItem}>
               <span>연락처: </span>
               <span className="ml-1">010-8506-7867</span>
+            </div>
+            <div className={S.contactItem}>
+              <span>위치: </span>
+              <span className="ml-1">서울특별시, 대한민국</span>
             </div>
           </div>
           <div>
@@ -42,69 +109,94 @@ export default function Resume() {
         <section className={S.section}>
           <h2 className={S.sectionTitle}>프로필 요약</h2>
           <p className="text-gray-600 dark:text-gray-300">
-            5년 이상의 프론트엔드 개발 경험을 가진 개발자로, 사용자 중심의
-            인터페이스 설계와 성능 최적화에 역량을 갖추고 있습니다. React와
-            Next.js 기반의 웹 애플리케이션 개발에 전문성을 보유하고 있으며,
-            새로운 기술 학습과 팀 협업에 열정을 가지고 있습니다.
+            로봇 콘텐츠 제작 도구 및 관리 시스템 개발, 웹 인프라 지원 등 다양한
+            프로젝트를 경험한 프론트엔드 개발자입니다. Next.js, TypeScript,
+            React를 중심으로 사용자 경험과 성능 최적화에 집중하며, 팀과의 협업과
+            새로운 기술 도입에 적극적입니다.
+          </p>
+        </section>
+
+        {/* 가치관 */}
+        <section className={S.section}>
+          <h2 className={S.sectionTitle}>중요하게 생각하는 점</h2>
+          <p className="text-primary-700 dark:text-primary-300 font-semibold">
+            저는 예측 가능한 미래의 비효율과 불편함을 방치하지 않으며,
+            <br />
+            생산성 향상을 위해 선제적으로 개선하는 자세를 중요하게 생각합니다.
           </p>
         </section>
 
         {/* 경력 */}
         <section className={S.section}>
           <h2 className={S.sectionTitle}>경력</h2>
-
-          <div className={S.experienceItem}>
-            <div className={S.experienceHeader}>
-              <div>
-                <span className={S.experienceTitle}>
-                  시니어 프론트엔드 개발자
-                </span>
-                <span> @ </span>
-                <span className={S.experienceCompany}>ABC 테크놀로지</span>
-              </div>
-              <span className={S.experienceDate}>2023년 - 현재</span>
-            </div>
-            <ul className={S.experienceDesc + " list-disc list-inside"}>
-              <li>대규모 SPA 애플리케이션 성능 최적화 (로딩 시간 40% 개선)</li>
-              <li>5명의 프론트엔드 개발팀 리드, 코드 리뷰 및 아키텍처 설계</li>
-              <li>
-                TypeScript, Next.js, React Query를 활용한 견고한 코드베이스 구축
-              </li>
-              <li>디자인 시스템 구축 및 컴포넌트 라이브러리 개발</li>
-            </ul>
-          </div>
-
+          {/* 토룩 경력 */}
           <div className={S.experienceItem}>
             <div className={S.experienceHeader}>
               <div>
                 <span className={S.experienceTitle}>프론트엔드 개발자</span>
                 <span> @ </span>
-                <span className={S.experienceCompany}>XYZ 솔루션</span>
+                <span className={S.experienceCompany}>토룩</span>
               </div>
-              <span className={S.experienceDate}>2020년 - 2023년</span>
+              <span className={S.experienceDate}>2023.05 - 2025.05</span>
             </div>
-            <ul className={S.experienceDesc + " list-disc list-inside"}>
-              <li>실시간 데이터 시각화 대시보드 개발 (React, D3.js)</li>
-              <li>RESTful API와 GraphQL을 활용한 백엔드 통합</li>
-              <li>반응형 디자인 및 크로스 브라우저 호환성 개선</li>
-              <li>Jest와 React Testing Library를 활용한 테스트 자동화</li>
-            </ul>
+            <div className={S.experienceDesc}>
+              <div>
+                로봇 콘텐츠 제작 도구 및 관리 시스템 개발과 유지보수, 웹 인프라
+                지원 업무 수행
+              </div>
+              <ul className="list-disc list-inside mt-2">
+                <li>
+                  <b>로봇 콘텐츠 빌더툴 개발 (2023.05~2025.05)</b>
+                  <br />
+                  - 다양한 콘텐츠 제작 요구를 수용할 수 있는 빌더툴 개발
+                  <br />- 유연한 콘텐츠 제작 도구, 그래픽 최적화, 다양한 경우의
+                  수 처리, 정식 기획서 기반 검증 및 배포
+                </li>
+                <li>
+                  <b>로봇 콘텐츠 사이트 개발 및 유지보수 (2023.05~2025.05)</b>
+                  <br />
+                  - 웹 기반 시스템 개발 및 유지보수
+                  <br />- API 정리 및 개선, UI 개편, UX 개선, 동영상 플레이어
+                  개선 등
+                </li>
+                <li>
+                  <b>관리자 페이지 개발 (2025.01~2025.02)</b>
+                  <br />
+                  - 비개발자도 DB 작업 가능한 관리자 도구 개발
+                  <br />- 계정/로봇 정보 관리, 영업팀 시스템 배포
+                </li>
+                <li>
+                  <b>
+                    배포용 서버 개설, 도메인 체계 정리, 백엔드 스트레스 테스트,
+                    RDS 쿼리 최적화, 레거시 시스템 유지보수 등
+                  </b>
+                </li>
+              </ul>
+            </div>
           </div>
-
+          {/* 111퍼센트 경력 */}
           <div className={S.experienceItem}>
             <div className={S.experienceHeader}>
               <div>
-                <span className={S.experienceTitle}>주니어 웹 개발자</span>
+                <span className={S.experienceTitle}>
+                  Unity Developer (인턴)
+                </span>
                 <span> @ </span>
-                <span className={S.experienceCompany}>스타트업 스튜디오</span>
+                <span className={S.experienceCompany}>111퍼센트</span>
               </div>
-              <span className={S.experienceDate}>2018년 - 2020년</span>
+              <span className={S.experienceDate}>2022.02 - 2022.05</span>
             </div>
-            <ul className={S.experienceDesc + " list-disc list-inside"}>
-              <li>반응형 웹사이트 UI/UX 개발</li>
-              <li>jQuery에서 Vue.js로의 레거시 코드 마이그레이션</li>
-              <li>CSS 애니메이션 및 인터랙티브 요소 구현</li>
-            </ul>
+            <div className={S.experienceDesc}>
+              <div>모바일 게임 서비스 회사, 크리에이티브본부 소속</div>
+              <ul className="list-disc list-inside mt-2">
+                <li>
+                  회사 자체 게임 서버 엔진 학습 및 핵심 재미요소 기반 prototype
+                  제작
+                </li>
+                <li>3개월 인턴십 수행</li>
+                <li>Unity를 활용한 게임 프로토타입 개발 및 검증</li>
+              </ul>
+            </div>
           </div>
         </section>
 
@@ -117,14 +209,18 @@ export default function Resume() {
                 프론트엔드
               </h3>
               <div className={S.skillsList}>
-                <span className={S.skillItemStrong}>React</span>
-                <span className={S.skillItemStrong}>Next.js</span>
-                <span className={S.skillItemStrong}>TypeScript</span>
-                <span className={S.skillItem}>JavaScript</span>
-                <span className={S.skillItem}>HTML5</span>
-                <span className={S.skillItem}>CSS3</span>
-                <span className={S.skillItem}>Tailwind CSS</span>
-                <span className={S.skillItem}>Styled Components</span>
+                <span className={S.skillItem + " stack-badge"}>React</span>
+                <span className={S.skillItem + " stack-badge"}>Next.js</span>
+                <span className={S.skillItem + " stack-badge"}>TypeScript</span>
+                <span className={S.skillItem + " stack-badge"}>JavaScript</span>
+                <span className={S.skillItem + " stack-badge"}>HTML5</span>
+                <span className={S.skillItem + " stack-badge"}>CSS3</span>
+                <span className={S.skillItem + " stack-badge"}>
+                  Tailwind CSS
+                </span>
+                <span className={S.skillItem + " stack-badge"}>
+                  Styled Components
+                </span>
               </div>
             </div>
 
@@ -133,11 +229,17 @@ export default function Resume() {
                 상태 관리 & API
               </h3>
               <div className={S.skillsList}>
-                <span className={S.skillItem}>Redux</span>
-                <span className={S.skillItemStrong}>React Query</span>
-                <span className={S.skillItem}>Context API</span>
-                <span className={S.skillItem}>GraphQL</span>
-                <span className={S.skillItem}>RESTful API</span>
+                <span className={S.skillItem + " stack-badge"}>Redux</span>
+                <span className={S.skillItem + " stack-badge"}>
+                  React Query
+                </span>
+                <span className={S.skillItem + " stack-badge"}>
+                  Context API
+                </span>
+                <span className={S.skillItem + " stack-badge"}>GraphQL</span>
+                <span className={S.skillItem + " stack-badge"}>
+                  RESTful API
+                </span>
               </div>
             </div>
 
@@ -146,12 +248,14 @@ export default function Resume() {
                 테스트 & 도구
               </h3>
               <div className={S.skillsList}>
-                <span className={S.skillItem}>Jest</span>
-                <span className={S.skillItem}>React Testing Library</span>
-                <span className={S.skillItem}>Git</span>
-                <span className={S.skillItem}>GitHub</span>
-                <span className={S.skillItem}>Webpack</span>
-                <span className={S.skillItem}>Vite</span>
+                <span className={S.skillItem + " stack-badge"}>Jest</span>
+                <span className={S.skillItem + " stack-badge"}>
+                  React Testing Library
+                </span>
+                <span className={S.skillItem + " stack-badge"}>Git</span>
+                <span className={S.skillItem + " stack-badge"}>GitHub</span>
+                <span className={S.skillItem + " stack-badge"}>Webpack</span>
+                <span className={S.skillItem + " stack-badge"}>Vite</span>
               </div>
             </div>
 
@@ -160,11 +264,13 @@ export default function Resume() {
                 기타
               </h3>
               <div className={S.skillsList}>
-                <span className={S.skillItem}>Node.js</span>
-                <span className={S.skillItem}>Express</span>
-                <span className={S.skillItem}>CI/CD</span>
-                <span className={S.skillItem}>Agile/Scrum</span>
-                <span className={S.skillItem}>Figma</span>
+                <span className={S.skillItem + " stack-badge"}>Node.js</span>
+                <span className={S.skillItem + " stack-badge"}>Express</span>
+                <span className={S.skillItem + " stack-badge"}>CI/CD</span>
+                <span className={S.skillItem + " stack-badge"}>
+                  Agile/Scrum
+                </span>
+                <span className={S.skillItem + " stack-badge"}>Figma</span>
               </div>
             </div>
           </div>
@@ -176,9 +282,13 @@ export default function Resume() {
           <div className={S.educationItem}>
             <div className={S.educationHeader}>
               <div>
-                <span className={S.educationTitle}>블록체인 기반 핀테크 및 응용SW개발자 양성과정</span>
+                <span className={S.educationTitle}>
+                  블록체인 기반 핀테크 및 응용SW개발자 양성과정
+                </span>
                 <span> @ </span>
-                <span className={S.educationInstitution}>주식회사 경일게임아카데미</span>
+                <span className={S.educationInstitution}>
+                  주식회사 경일게임아카데미
+                </span>
               </div>
               <span className={S.educationDate}>2022년 8월 - 2023년</span>
             </div>
@@ -199,14 +309,16 @@ export default function Resume() {
               <div>
                 <span className={S.educationTitle}>게임프로그래머 유니티</span>
                 <span> @ </span>
-                <span className={S.educationInstitution}>부산예일직업전문학교</span>
+                <span className={S.educationInstitution}>
+                  부산예일직업전문학교
+                </span>
               </div>
               <span className={S.educationDate}>2021년 6월 - 2021년 12월</span>
             </div>
             <ul className={S.experienceDesc + " list-disc list-inside"}>
               <li>Unity 및 C# 기반 게임 개발</li>
               <li>3D 게임 구현 및 최적화</li>
-              <li>셔이더 프로그래밍 및 시각 효과 구현</li>
+              <li>셰이더 프로그래밍 및 시각 효과 구현</li>
             </ul>
           </div>
 
@@ -222,20 +334,16 @@ export default function Resume() {
           </div>
         </section>
 
-        {/* 자격증 및 수상 */}
-        <section className={S.section}>
-          <h2 className={S.sectionTitle}>자격증 및 수상</h2>
-          <ul className="list-disc list-inside text-gray-600 dark:text-gray-300">
-            <li>정보처리기사 (2018)</li>
-            <li>AWS 클라우드 프랙티셔너 (2020)</li>
-            <li>우수 개발자상 - XYZ 솔루션 (2022)</li>
-          </ul>
-        </section>
-
         {/* 다운로드 버튼 */}
-        <div className="text-center">
-          <button className={S.downloadButton}>PDF로 다운로드</button>
-        </div>
+        {/* <div className="text-center">
+          <button
+            id="pdf-download-btn"
+            className={S.downloadButton}
+            onClick={handleDownloadPDF}
+          >
+            PDF로 다운로드
+          </button>
+        </div> */}
       </div>
     </div>
   );

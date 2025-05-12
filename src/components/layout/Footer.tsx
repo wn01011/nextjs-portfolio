@@ -1,8 +1,12 @@
-import Link from 'next/link';
+"use client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
+  const pathname = usePathname();
+  if (pathname === "/resume") return null;
   const currentYear = new Date().getFullYear();
-  
+
   return (
     <footer className="bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-300 border-t border-gray-200 dark:border-gray-800">
       <div className="container mx-auto px-4 py-8">
