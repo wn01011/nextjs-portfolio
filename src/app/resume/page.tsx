@@ -2,57 +2,57 @@
 import * as S from "./page.style";
 import Image from "next/image";
 import { useRef } from "react";
-import html2pdf from "html2pdf.js";
+// import html2pdf from "html2pdf.js";
 
 export default function Resume() {
   const pdfRef = useRef<HTMLDivElement>(null);
 
-  const handleDownloadPDF = () => {
-    if (pdfRef.current) {
-      // PDF 버튼을 임시로 숨김 처리
-      const btn = document.getElementById("pdf-download-btn");
-      const originalDisplay = btn ? btn.style.display : "";
-      if (btn) btn.style.display = "none";
+  // const handleDownloadPDF = () => {
+  //   if (pdfRef.current) {
+  //     // PDF 버튼을 임시로 숨김 처리
+  //     const btn = document.getElementById("pdf-download-btn");
+  //     const originalDisplay = btn ? btn.style.display : "";
+  //     if (btn) btn.style.display = "none";
 
-      // 다크모드 강제 해제 (resume 영역만)
-      const resumeEl = pdfRef.current;
-      const originalBg = resumeEl.style.backgroundColor;
-      const originalColor = resumeEl.style.color;
-      resumeEl.style.backgroundColor = "#fff";
-      resumeEl.style.color = "#222";
-      resumeEl.classList.remove("dark");
+  //     // 다크모드 강제 해제 (resume 영역만)
+  //     const resumeEl = pdfRef.current;
+  //     const originalBg = resumeEl.style.backgroundColor;
+  //     const originalColor = resumeEl.style.color;
+  //     resumeEl.style.backgroundColor = "#fff";
+  //     resumeEl.style.color = "#222";
+  //     resumeEl.classList.remove("dark");
 
-      // 하위 모든 요소에서 dark 클래스를 제거
-      resumeEl.querySelectorAll(".dark").forEach((el) => {
-        el.classList.remove("dark");
-      });
+  //     // 하위 모든 요소에서 dark 클래스를 제거
+  //     resumeEl.querySelectorAll(".dark").forEach((el) => {
+  //       el.classList.remove("dark");
+  //     });
 
-      // stack-badge 중앙 정렬 스타일 강제 적용
-      const stackBadges = resumeEl.querySelectorAll(".stack-badge");
-      const originalBadgeStyles: string[] = [];
-      stackBadges.forEach((el) => {
-        originalBadgeStyles.push(el.getAttribute("style") || "");
-        el.setAttribute(
-          "style",
-          (el.getAttribute("style") || "") +
-            "display:flex;align-items:center;justify-content:center;height:32px;min-width:48px;padding:0 12px;font-size:1rem;vertical-align:middle;"
-        );
-      });
+  //     // stack-badge 중앙 정렬 스타일 강제 적용
+  //     const stackBadges = resumeEl.querySelectorAll(".stack-badge");
+  //     const originalBadgeStyles: string[] = [];
+  //     stackBadges.forEach((el) => {
+  //       originalBadgeStyles.push(el.getAttribute("style") || "");
+  //       el.setAttribute(
+  //         "style",
+  //         (el.getAttribute("style") || "") +
+  //           "display:flex;align-items:center;justify-content:center;height:32px;min-width:48px;padding:0 12px;font-size:1rem;vertical-align:middle;"
+  //       );
+  //     });
 
-      html2pdf()
-        .from(resumeEl)
-        .save("resume.pdf")
-        .then(() => {
-          if (btn) btn.style.display = originalDisplay;
-          resumeEl.style.backgroundColor = originalBg;
-          resumeEl.style.color = originalColor;
-          // stack-badge 스타일 원복
-          stackBadges.forEach((el, idx) => {
-            el.setAttribute("style", originalBadgeStyles[idx]);
-          });
-        });
-    }
-  };
+  //     html2pdf()
+  //       .from(resumeEl)
+  //       .save("resume.pdf")
+  //       .then(() => {
+  //         if (btn) btn.style.display = originalDisplay;
+  //         resumeEl.style.backgroundColor = originalBg;
+  //         resumeEl.style.color = originalColor;
+  //         // stack-badge 스타일 원복
+  //         stackBadges.forEach((el, idx) => {
+  //           el.setAttribute("style", originalBadgeStyles[idx]);
+  //         });
+  //       });
+  //   }
+  // };
 
   return (
     <div ref={pdfRef} className={S.container} id="resume-root">
