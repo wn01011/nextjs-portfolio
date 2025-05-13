@@ -1,4 +1,5 @@
 "use client";
+import { getImageSrc } from "@/utils/getImageSrc";
 import * as S from "./page.style";
 import Image from "next/image";
 import { useRef } from "react";
@@ -59,7 +60,7 @@ export default function Resume() {
       <div className={S.resumeContainer}>
         <div className="flex justify-center mb-6">
           <Image
-            src="/profile.jpeg"
+            src={getImageSrc("/profile.jpeg")}
             alt="프로필 이미지"
             width={112}
             height={112}
