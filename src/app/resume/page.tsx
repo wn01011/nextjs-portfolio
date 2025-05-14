@@ -227,20 +227,15 @@ export default function Resume() {
 
             <div>
               <h3 className="font-medium mb-2 text-gray-700 dark:text-gray-200">
-                상태 관리 & API
+                상태 관리
               </h3>
               <div className={S.skillsList}>
                 <span className={S.skillItem + " stack-badge"}>Redux</span>
                 <span className={S.skillItem + " stack-badge"}>
                   React Query
                 </span>
-                <span className={S.skillItem + " stack-badge"}>
-                  Context API
-                </span>
-                <span className={S.skillItem + " stack-badge"}>GraphQL</span>
-                <span className={S.skillItem + " stack-badge"}>
-                  RESTful API
-                </span>
+                <span className={S.skillItem + " stack-badge"}>MobX</span>
+                <span className={S.skillItem + " stack-badge"}>Zustand</span>
               </div>
             </div>
 
