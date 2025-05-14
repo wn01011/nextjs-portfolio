@@ -2,6 +2,8 @@
 
 **Next.js, TypeScript, Tailwind CSS, ReactFlow**를 활용해 구축한 프론트엔드 개발자 포트폴리오 사이트입니다.  
 
+**▶️ 실제 배포 사이트:** [https://wn01011.github.io/nextjs-portfolio/](https://wn01011.github.io/nextjs-portfolio/)
+
 ---
 
 ## 주요 기능
