@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { WorkExperience, Project } from "@/data/experience";
 import { Education } from "@/data/education";
 import ExperienceTimeline from "./ExperienceTimeline";
@@ -22,6 +22,12 @@ const ExperienceTabs: React.FC<ExperienceTabsProps> = ({
   const [activeTab, setActiveTab] = useState<"work" | "education" | "projects">(
     "work"
   );
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.location.hash) {
+      setActiveTab("projects");
+    }
+  }, []);
 
   return (
     <div className={S.tabsContainer}>
