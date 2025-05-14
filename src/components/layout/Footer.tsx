@@ -16,9 +16,8 @@ export default function Footer() {
               href="/"
               className="text-lg font-bold text-gray-800 dark:text-white"
             >
-              프론트앤드 개발자 소개 사이트
+              김정규 소개 사이트입니다
             </Link>
-            <p className="mt-2 text-sm">김정규의 소개 사이트입니다.</p>
             <p className="mt-2 text-sm">
               최근 관심있는 분야는 MCP 를 통한 생산성 향상이에요.
             </p>

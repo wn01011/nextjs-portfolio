@@ -31,9 +31,8 @@ const toroocExperience: WorkExperience = {
       technologies: ["Next.js", "TypeScript", "React", "Tailwind CSS"],
       highlights: [
         "기존 선형적 콘텐츠 생산 한계를 뛰어넘는 유연한 콘텐츠 제작 도구 개발",
-        "게임 클라이언트 경험을 활용한 그래픽 최적화 (줌 상태에 따른 화질 조정)",
         "콘텐츠팀 요구사항을 반영한 다양한 경우의 수 처리 가능한 시스템 구현",
-        "정식 기획서 기반 검증 및 배포 진행",
+        "기획서 기반 검증 및 배포 진행",
       ],
       category: "개발",
     },
