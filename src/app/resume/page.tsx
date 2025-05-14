@@ -252,10 +252,6 @@ export default function Resume() {
                 <span className={S.skillItem + " stack-badge"}>Node.js</span>
                 <span className={S.skillItem + " stack-badge"}>Express</span>
                 <span className={S.skillItem + " stack-badge"}>CI/CD</span>
-                <span className={S.skillItem + " stack-badge"}>
-                  Agile/Scrum
-                </span>
-                <span className={S.skillItem + " stack-badge"}>Figma</span>
               </div>
             </div>
           </div>
