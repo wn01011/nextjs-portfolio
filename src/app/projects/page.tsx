@@ -177,8 +177,6 @@ const categories = [
   { id: "all", name: "전체" },
   { id: "frontend", name: "프론트엔드" },
   { id: "fullstack", name: "풀스택" },
-  { id: "data", name: "데이터 시각화" },
-  { id: "api", name: "API 통합" },
   { id: "game", name: "게임 개발" },
 ];
 
