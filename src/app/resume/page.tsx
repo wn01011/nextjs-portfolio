@@ -246,22 +246,6 @@ export default function Resume() {
 
             <div>
               <h3 className="font-medium mb-2 text-gray-700 dark:text-gray-200">
-                테스트 & 도구
-              </h3>
-              <div className={S.skillsList}>
-                <span className={S.skillItem + " stack-badge"}>Jest</span>
-                <span className={S.skillItem + " stack-badge"}>
-                  React Testing Library
-                </span>
-                <span className={S.skillItem + " stack-badge"}>Git</span>
-                <span className={S.skillItem + " stack-badge"}>GitHub</span>
-                <span className={S.skillItem + " stack-badge"}>Webpack</span>
-                <span className={S.skillItem + " stack-badge"}>Vite</span>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="font-medium mb-2 text-gray-700 dark:text-gray-200">
                 기타
               </h3>
               <div className={S.skillsList}>

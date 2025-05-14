@@ -1,66 +1,9 @@
 "use client";
 
-import { useState, FormEvent } from "react";
 import * as S from "./page.style";
 import "./reflection-animation.css";
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<{
-    type: "success" | "error" | null;
-    message: string;
-  }>({
-    type: null,
-    message: "",
-  });
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    // 실제 환경에서는 여기에서 폼 데이터를 서버로 전송합니다.
-    // 예: await fetch('/api/contact', { method: 'POST', body: JSON.stringify(formData) })
-
-    // 폼 제출 시뮬레이션
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitStatus({
-        type: "success",
-        message: "메시지가 성공적으로 전송되었습니다. 곧 연락드리겠습니다!",
-      });
-
-      // 폼 초기화
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-      });
-
-      // 3초 후 상태 메시지 제거
-      setTimeout(() => {
-        setSubmitStatus({ type: null, message: "" });
-      }, 3000);
-    }, 1500);
-  };
-
   return (
     <div className={S.container}>
       <h1 className={S.title}>연락처</h1>

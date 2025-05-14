@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
-import ExperienceTimeline from '@/components/experience/ExperienceTimeline';
-import EducationTimeline from '@/components/experience/EducationTimeline';
-import ProjectHighlights from '@/components/experience/ProjectHighlights';
+
 import toroocExperience from '@/data/experience';
 import educationData from '@/data/education';
 import * as S from './page.style';
